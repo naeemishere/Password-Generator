@@ -5,17 +5,21 @@ var chars = {
     numeric: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
     specialChars: ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "-", ".", "~", "|", "<", ">", "=", "-", "_", "/", ":", ";", "?", "[", "]", "{", "}", "~"]
     }; ////////////////////////////////////
+    
     var randomChars = function (array) {
       return array[Math.floor(Math.random() * array.length)];
-    };/////////////////////////////////////
+    };   /////////////////////////////////////
     //Create a function to select  characters to be included with a password.
+    
     var clickOk = function () {
-    var arrayofChars = [];
+    
+      var includeChars = [];
+
       var confirmUpperCase = "";
       var confirmLowerCase = "";
       var confirmNumbers = "";
       var confirmSpecialCharacters = "";
-      var confirm = function () {
+      var confirmedCharacter = function () {
         // confirm if a user wants: Uppercase characters
         confirmUpperCase = confirm("Click OK to confirm including Uppercase characters.")
         // confirm if a user wants: Lowercase characters.
@@ -23,30 +27,34 @@ var chars = {
         // confirm if a user wants: Numeric characters.
         confirmNumbers = confirm("Click OK to confirm including Numeric characters."),
         // confirm if a user wants: Special characters.
-        confirmSpecialCharacters = confirm("Do you want your password to contain Special characters.");
+        confirmSpecialCharacters = confirm("Click OK to confirm including Special characters.");
       }
-      confirm();
+      confirmedCharacter();
       while (!confirmUpperCase && !confirmLowerCase && !confirmNumbers && !confirmSpecialCharacters) {
-        window.alert("Click OK to Select at least one character!!!")
+        window.alert("Click OK to Select  at least one character!!!")
         //Once the user Clicks ok for at least one Characters, Random Password should generate!
-        confirm();
+        confirmedCharacter();
       }
       var includeArry = function(outPut, addChars) {
         if (outPut) {
-          includeChars = selectedCharacter.concat(addChars);
-        } return includeChars;
-      }
-      selectedCharacter = includeArry(confirmUpperCase, chars.upperCase);
-      selectedCharacter = includeArry(confirmLowerCase, chars.lowerCase);
-      selectedCharacter = includeArry(confirmNumbers, chars.numeric);
-      selectedCharacter = includeArry(confirmSpecialCharacters, chars.specialChars);
+          includeChars = includeChars.concat(addChars);
+        } 
+        return includeChars;
+      };
+      includeChars = includeArry(confirmUpperCase, chars.upperCase);
+      includeChars = includeArry(confirmLowerCase, chars.lowerCase);
+      includeChars = includeArry(confirmNumbers, chars.numeric);
+      includeChars = includeArry(confirmSpecialCharacters, chars.specialChars);
+
       return includeChars;
+
     }; /////////////////////////////////////////////
-    var generatePassword = function(){
+
+    var generatePassword = function () {
       var createdPassword = "";
       var randomPassword = parseInt(window.prompt("How Many Characters would you like your Password to contain?"));
-      while (!randomPassword || !randomPassword < 8 || !randomPassword > 128); {
-      window.alert("Please Try Again!!!")
+      while (!randomPassword || randomPassword < 8 || randomPassword > 128) {
+      window.alert("Please Try Again!!!");
       randomPassword = parseInt(window.prompt("How Many Characters would you like your Password to contain?"));
       // generatePassword();
     }
@@ -55,7 +63,7 @@ var chars = {
        createdPassword += randomChars(selectedPassword);
     }
       return createdPassword;
-    };/////////////////////////////////////////////////////
+    }; /////////////////////////////////////////////////////
     // Get references to the #generate element
     var generateBtn = document.querySelector("#generate");
     // Write password to the #password input
